@@ -1,6 +1,6 @@
 # 3d flow-field particles experiment in THREE.js
 
-[Live version](http://szymonkaliski.github.io/threejs-exp-particles/)
+Original Repo: [Live version](http://szymonkaliski.github.io/threejs-exp-particles/)
 
 ## Installation
 

@@ -17,7 +17,6 @@ function Particles(num, radius, length, flowField) {
       r * Math.cos(angle),     // y-coordinate in the circular base
       r * Math.sin(angle)      // z-coordinate in the circular base
     );
-
     geometry.vertices.push(vertex);
     this.initialX.push(vertex.x);  // Store initial x to reset when it reaches the right end
 
