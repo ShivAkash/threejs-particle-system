@@ -37,8 +37,8 @@ Particles.prototype.update = function() {
     var vertex = this.points.geometry.vertices[i];
     var velocity = this.velocities[i];
 
-    vertex.add(velocity);  // Move raindrop along x-axis
-
+    //vertex.add(velocity);  // Move raindrop along x-axis
+    vertex.add(velocity.multiplyScalar(2));
     // Reset the raindrop when it reaches the end of the x-axis (the right side)
     if (vertex.x > 1000) {  // Assuming 100 is the length of the cylinder
       vertex.x = this.initialX[i];  // Reset to original starting point on x-axis
