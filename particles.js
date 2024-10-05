@@ -5,26 +5,23 @@ function Particles(num, size, flowField) {
 
   var geometry = new THREE.Geometry();
   this.velocities = [];
+  this.initialY = [];
 
   for (var i = 0; i < num; ++i) {
     var vertex = new THREE.Vector3(
-      (Math.random() - 0.5),
-      (Math.random() - 0.5),
-      (Math.random() - 0.5)
+      Math.random() * size - size / 2,  // Random x position
+      Math.random() * size,  // Random initial height
+      Math.random() * size - size / 2   // Random z position
     );
-
     geometry.vertices.push(vertex);
 
-    this.velocities.push(new THREE.Vector3(
-      Math.random() - 0.5,
-      Math.random() - 0.5,
-      Math.random() - 0.5
-    ));
+    this.initialY.push(vertex.y);  // Store the initial height for resetting
+    this.velocities.push(new THREE.Vector3(0, Math.random() * -0.1 - 0.01, 0));  // Initial downward velocity
   }
 
   var material = new THREE.PointsMaterial({
-    size: 0.01,
-    color: 0xffffff
+    size: 0.02,
+    color: 0x00ffff // Raindrop color
   });
 
   this.points = new THREE.Points(geometry, material);
@@ -35,26 +32,19 @@ Particles.prototype.update = function() {
     var vertex = this.points.geometry.vertices[i];
     var velocity = this.velocities[i];
 
-    var flow = this.flowField.sample(vertex.x, vertex.y, vertex.z);
+    vertex.add(velocity);  // Move raindrop by its velocity
 
+    // Reset the raindrop when it falls below a certain threshold
+    if (vertex.y < -10) {
+      vertex.y = this.initialY[i];  // Reset to the original height
+      velocity.y = Math.random() * -0.1 - 0.01;  // Reset velocity
+    }
+
+    // Apply flow-field influence
+    var flow = this.flowField.sample(vertex.x, vertex.y, vertex.z);
     if (flow) {
       var steer = flow.clone().sub(velocity);
-
       velocity.add(steer.multiplyScalar(0.02));
-      vertex.add(velocity.multiplyScalar(1.0));
-    }
-    else {
-      vertex.set(
-        Math.random() - 0.5,
-        Math.random() - 0.5,
-        Math.random() - 0.5
-      );
-
-      velocity.set(
-        Math.random() - 0.5,
-        Math.random() - 0.5,
-        Math.random() - 0.5
-      );
     }
   }
 
@@ -62,4 +52,3 @@ Particles.prototype.update = function() {
 };
 
 module.exports = Particles;
-
