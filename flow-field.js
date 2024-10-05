@@ -14,7 +14,6 @@ function FlowField(size) {
       for (var z = 0; z < size; ++z) {
         var mod = 0.07;
         // We can use noise for slight variation in raindrop paths
-        this.field[x][y][z] = computeNoise(x * mod, y * mod, z * mod);
       }
     }
   }
