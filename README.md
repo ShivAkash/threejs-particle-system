@@ -29,7 +29,7 @@ Ensure you have the following installed on your system:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/ShivAkash/threejs-particle-flow.git
+   git clone https://github.com/ShivAkash/threejs-particle-system.git
    cd threejs-particle-flow
    ```
 
