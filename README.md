@@ -1,4 +1,4 @@
-### ThreeJS Particle Flow
+### ThreeJS Particle System
 
 A particle flow visualization built with Three.js, showcasing animations, customizable controls, and post-processing effects for an immersive visual experience.
 
